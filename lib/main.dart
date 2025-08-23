@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Namer App',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         ),
         home: MyHomePage(),
       ),
@@ -71,36 +71,29 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-        children: [
-          SafeArea(
-            child: NavigationRail(
-              extended: false,
-              destinations: [
-                NavigationRailDestination(
-                  icon: Icon(Icons.home),
-                  label: Text('Home'),
-                ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.favorite),
-                  label: Text('Favorites'),
-                ),
-              ],
-              selectedIndex: selectedIndex,
-              onDestinationSelected: (value) {
-                setState(() {
-                  selectedIndex = value;
-                });
-              },
-            ),
+      bottomNavigationBar: NavigationBar(
+        destinations: const <Widget>[
+          NavigationDestination(
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
-          Expanded(
-            child: Container(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              child: _getPage(),
-            ),
+          NavigationDestination(
+            icon: Icon(Icons.favorite),
+            label: 'Favorites',
           ),
         ],
+        selectedIndex: selectedIndex,
+        onDestinationSelected: (value) {
+          setState(() {
+            selectedIndex = value;
+          });
+        },
+      ),
+      body: Expanded(
+        child: Container(
+          color: Theme.of(context).colorScheme.primaryContainer,
+          child: _getPage(),
+        ),
       ),
     );
   }
